@@ -1,4 +1,4 @@
-package com.jiaji.dmview;
+package com.jiaji.dmview.barrage;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.jiaji.dmview.R;
 
 import java.util.List;
 public class BarrageAdapter extends RecyclerView.Adapter<BarrageAdapter.BarrageViewHolder>{

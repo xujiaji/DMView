@@ -1,4 +1,4 @@
-package com.jiaji.dmview;
+package com.jiaji.dmview.barrage;
 
 /**
  * Created by Administrator on 2016/6/6.
