@@ -3,7 +3,6 @@ package com.jiaji.dmview.barrage;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.jiaji.dmview.recyclerview_item_anim.OverTotalLengthAnimator;
 
@@ -18,10 +17,8 @@ public class BarrageUtil {
     private RecyclerView rvBarrage;
     private List<BarrageEntity> barrageList;
     private BarrageAdapter mBarrageAdapter;
-    private OverTotalLengthAnimator anim;
     private List<Integer> indexList;
     private List<BarrageEntity> barrageCache;
-    private LinearLayoutManager layoutManager;
 
     public BarrageUtil(Context context, RecyclerView rvBarrage) {
         this.context = context;
@@ -33,9 +30,8 @@ public class BarrageUtil {
         barrageList = new ArrayList<>();
         barrageCache = new ArrayList<>();
         indexList = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true);
-        rvBarrage.setLayoutManager(layoutManager);
-        anim = new OverTotalLengthAnimator();
+        rvBarrage.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true));
+        OverTotalLengthAnimator anim = new OverTotalLengthAnimator();
         rvBarrage.setItemAnimator(anim);
         mBarrageAdapter = new BarrageAdapter(barrageList);
         rvBarrage.setAdapter(mBarrageAdapter);
@@ -56,7 +52,6 @@ public class BarrageUtil {
     }
 
     public void addBarrage(String name, String msg, String pic) {
-        Log.e("TAG", "visible_item_position = " + layoutManager.findFirstCompletelyVisibleItemPosition());
         boolean isAdd = false;
         if (barrageList.size() >= 10) {
             for (int i = 0, len = barrageList.size(); i < len; i++) {
