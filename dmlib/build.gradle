@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'dmlib'
+
+    publishedGroupId = 'com.github.xujiaji'
+    libraryName = 'DmLib'
+    artifact = 'dmlib'
+
+    libraryDescription = 'Bullet screen: Achieved through the use of RecyclerView'
+
+    siteUrl = 'https://github.com/xujiaji/DMView'
+    gitUrl = 'git@github.com:xujiaji/DMView.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'xujiaji'
+    developerName = 'xujiaji'
+    developerEmail = 'xinfeichiyuanye@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
+
+    defaultConfig {
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "com.github.bumptech.glide:glide:${versions.glide}"
+    compile "com.android.support:recyclerview-v7:${versions.supportLib}"
+}
+
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'

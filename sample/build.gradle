@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion setup.compileSdk
+    buildToolsVersion setup.buildTools
+
+    defaultConfig {
+        applicationId "com.jiaji.dmview"
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:${versions.supportLib}"
+    compile "com.github.bumptech.glide:glide:${versions.glide}"
+    compile "com.android.support:recyclerview-v7:${versions.supportLib}"
+    compile project(':dmlib')
+}
