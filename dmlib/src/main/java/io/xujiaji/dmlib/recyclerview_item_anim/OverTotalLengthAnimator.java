@@ -3,35 +3,36 @@ package io.xujiaji.dmlib.recyclerview_item_anim;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+
+import io.xujiaji.dmlib.util.DMLog;
 
 public class OverTotalLengthAnimator extends BaseItemAnimator {
     @Override
     protected void animateRemoveImpl(RecyclerView.ViewHolder holder) {
-        Log.e("TAG", "animateRemoveImpl...........................");
+        DMLog.i("animateRemoveImpl...........................");
     }
 
     @Override
     protected void preAnimateRemoveImpl(RecyclerView.ViewHolder holder) {
-        Log.e("TAG", "preAnimateRemoveImpl...........................");
+        DMLog.i("preAnimateRemoveImpl...........................");
     }
 
     @Override
     protected void preAnimateAddImpl(RecyclerView.ViewHolder holder) {
-        Log.e("TAG", "preAnimateAddImpl...........................");
+        DMLog.i("preAnimateAddImpl...........................");
         ViewCompat.setTranslationX(holder.itemView, holder.itemView.getRootView().getWidth());
     }
 
     @Override
     protected void animateAddImpl(RecyclerView.ViewHolder holder) {
-        Log.e("TAG", "animateAddImpl...........................");
+        DMLog.i("animateAddImpl...........................");
         startAnimation(holder);
     }
 
     @Override
     public boolean animateChange(RecyclerView.ViewHolder oldHolder, RecyclerView.ViewHolder newHolder, int fromX, int fromY, int toX, int toY) {
-        Log.e("TAG", "animateChange...........................");
+        DMLog.i("animateChange...........................");
         newHolder.itemView.setVisibility(View.VISIBLE);
         ViewCompat.setTranslationX(newHolder.itemView, newHolder.itemView.getRootView().getWidth());
         startAnimation(newHolder);
@@ -46,7 +47,7 @@ public class OverTotalLengthAnimator extends BaseItemAnimator {
                 .setListener(new ViewPropertyAnimatorListener() {
                     @Override
                     public void onAnimationStart(View view) {
-                        Log.e("TAG", "onAnimationStart");
+                        DMLog.i("onAnimationStart");
                     }
 
                     @Override
@@ -55,12 +56,12 @@ public class OverTotalLengthAnimator extends BaseItemAnimator {
                         if (onAnimListener != null) {
                             onAnimListener.over();
                         }
-                        Log.e("TAG", "onAnimationEnd");
+                        DMLog.i("onAnimationEnd");
                     }
 
                     @Override
                     public void onAnimationCancel(View view) {
-                        Log.e("TAG", "onAnimationCancel");
+                        DMLog.i("onAnimationCancel");
                     }
                 })
                 .setStartDelay(getAddDelay(holder))
