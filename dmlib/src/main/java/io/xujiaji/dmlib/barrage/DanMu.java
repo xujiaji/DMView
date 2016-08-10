@@ -38,7 +38,7 @@ public class DanMu {
     private List<Integer> indexList;
     private List<BarrageEntity> barrageCache;
     private static DanMu mDanMu;
-    private int rowNum;
+    private int rowNum = 6;
 
     private DanMu() {
     }
