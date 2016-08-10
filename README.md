@@ -1,7 +1,7 @@
 # DMView [中文介绍](http://www.jianshu.com/p/2232a63442d6)
 Library for display Bullet screen.You only need to add a few base info.
 # Version
-1.0.0
+1.1.1
 # Screen
 ![弹幕演示.gif](screen/弹幕演示.gif)
 
@@ -9,7 +9,7 @@ Library for display Bullet screen.You only need to add a few base info.
 To use this library in your android project, just simply add the following dependency into your build.gradle
 ```
 dependencies {
-    compile 'com.github.xujiaji:dmlib:1.0.0'
+    compile 'com.github.xujiaji:dmlib:1.1.1'
 }
 ```
 #Usage
@@ -42,7 +42,7 @@ DanMu.init(rvBarrage);
         DanMu.init(rvBarrage, config);
 ```
 - Note: If you do not name can refer to the following.
-```
+``` java
         Config config = new Config(
         R.layout.item,
         0,
@@ -59,7 +59,33 @@ DanMu.call()
 ```
 - Note: If the default layout, you will have to remove a part of a different layout
 
-|`picUrl msg|||
+>No.1
+``` java
+DanMu.call()
+        .picUrl("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=150237755,4294706681&fm=116&gp=0.jpg")
+        .msg("Bullet screen massage show ...")
+        .show();
+```
+>No.2
+``` java
+DanMu.call()
+        .msg("Bullet screen massage show ...")
+        .show();
+```
+>No.3
+``` java
+DanMu.call()
+        .name("xujiaji")
+        .msg("Bullet screen massage show ...")
+        .show();
+```
+>No.4
+``` java
+DanMu.call()
+        .picUrl("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=150237755,4294706681&fm=116&gp=0.jpg")
+        .show();
+```
+|No.1|No.2|No.3|No.4|
 |:-:|:-:|:-:|:-:|
 |![head_msg](screen/head_msg.png)|![msg](screen/msg.png)|![name_msg](screen/name_msg.png)|![head_msg](screen/head.png)|
 
