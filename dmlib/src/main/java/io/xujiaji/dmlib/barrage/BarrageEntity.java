@@ -17,12 +17,26 @@ package io.xujiaji.dmlib.barrage;
  */
 
 public class BarrageEntity {
+    /** 默认*/
+    public static final int TYPE_DEFAULT = 5;
+    /** 消息*/
+    public static final int TYPE_MSG = 6;
+    /** 头像*/
+    public static final int TYPE_HEAD = 7;
+    /** 名字和消息*/
+    public static final int TYPE_NAME_MSG = 8;
+    /** 头像和消息*/
+    public static final int TYPE_HEAD_MSG = 9;
+    /** 定制*/
+    public static final int TYPE_CUSTOMIZE = 10;
+    private int layoutType;
     private String pname;
     private String chatStr;
     private String pic;
     private boolean isLive;
 
     public BarrageEntity(String pname, String chatStr, String pic) {
+        layoutType = type(pname, chatStr, pic);
         this.pname = pname;
         this.chatStr = chatStr;
         this.pic = pic;
@@ -30,6 +44,7 @@ public class BarrageEntity {
     }
 
     public void change(String pname, String chatStr, String pic) {
+        layoutType = type(pname, chatStr, pic);
         this.pname = pname;
         this.chatStr = chatStr;
         this.pic = pic;
@@ -38,6 +53,14 @@ public class BarrageEntity {
 
     public void over() {
         isLive = false;
+    }
+
+    public int getLayoutType() {
+        return layoutType;
+    }
+
+    public void setLayoutType(int layoutType) {
+        this.layoutType = layoutType;
     }
 
     public boolean isLive() {
@@ -70,5 +93,14 @@ public class BarrageEntity {
 
     public void setPic(String pic) {
         this.pic = pic;
+    }
+
+    public int type(String name, String msg, String head) {
+        if (name != null && head != null && msg != null) return TYPE_DEFAULT;
+        if (name == null && head != null && msg != null) return TYPE_HEAD_MSG;
+        if (name == null && head == null && msg != null) return TYPE_MSG;
+        if (name != null && head == null && msg != null) return TYPE_NAME_MSG;
+        if (name == null && head != null && msg == null) return TYPE_HEAD;
+        return TYPE_CUSTOMIZE;
     }
 }

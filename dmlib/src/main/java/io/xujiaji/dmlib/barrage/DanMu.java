@@ -14,6 +14,7 @@ package io.xujiaji.dmlib.barrage;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,34 +22,75 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.xujiaji.dmlib.barrage.builder.All;
+import io.xujiaji.dmlib.barrage.builder.Builder;
 import io.xujiaji.dmlib.recyclerview_item_anim.OverTotalLengthAnimator;
+import io.xujiaji.dmlib.util.DMUtil;
 
 /**
- * Created by Administrator on 2016/6/7.
+ * Bullet screen configuration
  */
-public class BarrageUtil {
+public class DanMu {
     private Context context;
-    private RecyclerView rvBarrage;
+    private RecyclerView rv;
     private List<BarrageEntity> barrageList;
     private BarrageAdapter mBarrageAdapter;
     private List<Integer> indexList;
     private List<BarrageEntity> barrageCache;
+    private static DanMu mDanMu;
+    private int rowNum;
 
-    public BarrageUtil(Context context, RecyclerView rvBarrage) {
-        this.context = context;
-        this.rvBarrage = rvBarrage;
-        init();
+    private DanMu() {
     }
 
-    private void init() {
+    private static DanMu Instance() {
+        if (mDanMu == null) {
+            synchronized (DanMu.class) {
+                mDanMu = new DanMu();
+            }
+        }
+        return mDanMu;
+    }
+
+    public static void init(RecyclerView rv) {
+        if (DanMu.Instance().rv == null)
+            DanMu.Instance().rv = DMUtil.checkNotNull(rv, "DanMu.init(): RecyclerView is null");
+        DanMu.Instance().context = DanMu.Instance().rv.getContext();
+        DanMu.Instance().initView();
+    }
+
+    public static void init(RecyclerView rv, Config config) {
+        init(rv);
+        if (config == null) return;
+        if (config.getRowNum() != 0) {
+            DanMu.Instance().setRowNum(config.getRowNum());
+        }
+        if (config.getRootId() != 0){
+            DanMu.Instance().mBarrageAdapter.setConfigHolder(config);
+        }
+    }
+
+    public static All call() {
+        Builder builder = new Builder();
+        return builder.call();
+    }
+
+    protected static void build() {
+        DMUtil.checkNotNull(DanMu.Instance().rv, "Not running DanMu.init()");
+        DanMu danMu = DanMu.Instance();
+        danMu.addBarrage(Builder.get_name(), Builder.get_msg(), Builder.get_picUrl());
+        Builder.clear();
+    }
+
+    private void initView() {
         barrageList = new ArrayList<>();
         barrageCache = new ArrayList<>();
         indexList = new ArrayList<>();
-        rvBarrage.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true));
+        rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true));
         OverTotalLengthAnimator anim = new OverTotalLengthAnimator();
-        rvBarrage.setItemAnimator(anim);
+        rv.setItemAnimator(anim);
         mBarrageAdapter = new BarrageAdapter(barrageList);
-        rvBarrage.setAdapter(mBarrageAdapter);
+        rv.setAdapter(mBarrageAdapter);
 
         anim.setOnAnimListener(new OverTotalLengthAnimator.OnAnimListener() {
             @Override
@@ -67,14 +109,14 @@ public class BarrageUtil {
 
     public void addBarrage(String name, String msg, String pic) {
         boolean isAdd = false;
-        if (barrageList.size() >= 10) {
+        if (barrageList.size() >= rowNum) {
             for (int i = 0, len = barrageList.size(); i < len; i++) {
                 BarrageEntity barrageEntity = barrageList.get(i);
                 if (barrageEntity.isLive()) {
                     continue;
                 }
 
-                if (rvBarrage.isComputingLayout()) {
+                if (rv.isComputingLayout()) {
                     isAdd = false;
                     break;
                 }
@@ -95,5 +137,9 @@ public class BarrageUtil {
         if (!isAdd) {
             barrageCache.add(new BarrageEntity(name, msg, pic));
         }
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
     }
 }

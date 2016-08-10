@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/head_size"
+    android:layout_height="wrap_content"
     android:id="@+id/layout"
     android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/tvBarrageName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_toRightOf="@+id/imgBarrageHead"
-        android:textColor="#ff8813"
-        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/tvBarrageMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="-15dp"
         android:paddingLeft="21dp"
         android:layout_toRightOf="@+id/imgBarrageHead"
