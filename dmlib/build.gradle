@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/xujiaji/DMView'
     gitUrl = 'git@github.com:xujiaji/DMView.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.1.1'
 
     developerId = 'xujiaji'
     developerName = 'xujiaji'
@@ -32,7 +32,7 @@ android {
         minSdkVersion setup.minSdk
         targetSdkVersion setup.targetSdk
         versionCode 1
-        versionName "1.1.0"
+        versionName "1.1.1"
     }
     buildTypes {
         release {
