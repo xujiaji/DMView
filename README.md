@@ -60,6 +60,7 @@ DanMu.call()
 - Note: If the default layout, you will have to remove a part of a different layout
 
 >No.1
+
 ``` java
 DanMu.call()
         .picUrl("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=150237755,4294706681&fm=116&gp=0.jpg")
@@ -67,12 +68,14 @@ DanMu.call()
         .show();
 ```
 >No.2
+
 ``` java
 DanMu.call()
         .msg("Bullet screen massage show ...")
         .show();
 ```
 >No.3
+
 ``` java
 DanMu.call()
         .name("xujiaji")
@@ -80,6 +83,7 @@ DanMu.call()
         .show();
 ```
 >No.4
+
 ``` java
 DanMu.call()
         .picUrl("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=150237755,4294706681&fm=116&gp=0.jpg")
