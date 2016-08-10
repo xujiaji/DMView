@@ -1,4 +1,4 @@
-# DMView [中文介绍](http://www.jianshu.com/p/2232a63442d6)
+# DMView [中文介绍](http://www.jianshu.com/p/6649f5239aef)
 Library for display Bullet screen.You only need to add a few base info.
 # Version
 1.1.1
