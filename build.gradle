@@ -13,6 +13,10 @@ buildscript {
     }
 }
 
+subprojects {
+    tasks.withType(Javadoc).all { enabled = false }
+}
+
 allprojects {
     repositories {
         jcenter()

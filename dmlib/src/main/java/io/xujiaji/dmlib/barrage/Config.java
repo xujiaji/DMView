@@ -15,12 +15,21 @@ import com.bumptech.glide.Glide;
  */
 public class Config {
     private int rootId, nameId, msgId, headId;
-    private int rowNum;
+    private int rowNum, duration;
+    public Config() {}
     public Config(@LayoutRes int rootId, @IdRes int nameId, @IdRes int msgId, @IdRes int headId) {
         this.rootId = rootId;
         this.nameId = nameId;
         this.msgId = msgId;
         this.headId = headId;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public int getRowNum() {

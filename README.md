@@ -1,7 +1,7 @@
 # DMView [中文介绍](http://www.jianshu.com/p/6649f5239aef)
 Library for display Bullet screen.You only need to add a few base info.
-# Version
-1.1.1
+# Now Version
+2.0.0
 # Screen
 ![弹幕演示.gif](screen/弹幕演示.gif)
 
@@ -9,11 +9,11 @@ Library for display Bullet screen.You only need to add a few base info.
 To use this library in your android project, just simply add the following dependency into your build.gradle
 ```
 dependencies {
-    compile 'com.github.xujiaji:dmlib:1.1.1'
+    compile 'com.github.xujiaji:dmlib:2.0.0'
 }
 ```
 #Usage
-### 1.You need to have a RecyclerView(This is in the activity_main.xml)
+### 1.You need to have a RecyclerView(This is in the sample project's activity_main.xml)
 ``` xml
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvBarrage"
@@ -31,16 +31,21 @@ rvBarrage = (RecyclerView) findViewById(R.id.rvBarrage);
 DanMu.init(rvBarrage);
 ```
 
-##### ②Init-2: Use your custom layout or rows.Default 6 rows.
+##### ②Init-2: Config yourself layout
 ``` java
         Config config = new Config(
         R.layout.item,
         R.id.tvName,
         R.id.tvMsg,
         R.id.imgHead);
-        config.setRowNum(5);//set rows
+        config.setRowNum(5);//setting bullet screen's rows
         DanMu.init(rvBarrage, config);
 ```
+
+- Display Run Results
+
+![sample_project_customize_layout](screen/sample_project_customize_layout.png)
+
 - Note: If you do not name can refer to the following.
 ``` java
         Config config = new Config(
@@ -49,6 +54,21 @@ DanMu.init(rvBarrage);
         R.id.tvMsg,
         R.id.imgHead);
 ```
+
+##### ③Init-3:Setting bullet screen's rows
+```
+        Config config = new Config();
+        config.setRowNum(3);
+        DanMu.init(rvBarrage, config);
+```
+
+##### ④Init-4:Setting bullet screen's animator duration
+```
+        Config config = new Config();
+        config.setDuration(10000);
+        DanMu.init(rvBarrage, config);
+```
+
 ### 3.Add a Bullet screen
 ``` java
 DanMu.call()
@@ -93,6 +113,15 @@ DanMu.call()
 |:-:|:-:|:-:|:-:|
 |![head_msg](screen/head_msg.png)|![msg](screen/msg.png)|![name_msg](screen/name_msg.png)|![head_msg](screen/head.png)|
 
+### 3. Destroy bullet screen 
+```java
+    @Override
+    protected void onDestroy() {
+        DanMu.destroy();
+        super.onDestroy();
+    }
+```
+
 ### Activity all codes
 ``` java
 public class MainActivity extends AppCompatActivity {
@@ -103,13 +132,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rvBarrage = (RecyclerView) findViewById(R.id.rvBarrage);
+        //sample.1: default init
         DanMu.init(rvBarrage);
+
+        //sample.2: config yourself layout
 //        Config config = new Config(
 //                R.layout.item,
 //                R.id.tvName,
 //                R.id.tvMsg,
 //                R.id.imgHead);
-//        config.setRowNum(5);
+//        config.setRowNum(5);  // setting bullet screen's rows
+//        DanMu.init(rvBarrage, config);
+
+        //sample.3: setting bullet screen's rows
+//        Config config = new Config();
+//        config.setRowNum(3);
+//        DanMu.init(rvBarrage, config);
+
+        //sample.4 setting bullet screen's animator duration
+//        Config config = new Config();
+//        config.setDuration(10000);
 //        DanMu.init(rvBarrage, config);
     }
 
@@ -120,17 +162,27 @@ public class MainActivity extends AppCompatActivity {
                 .msg("Bullet screen massage show ...")
                 .show();
     }
+
+    @Override
+    protected void onDestroy() {
+        DanMu.destroy();
+        super.onDestroy();
+    }
 }
 ```
 #Change Logs
+###v2.0.0
+Change library animator, it was originally RecyclerView Animation Library on github. Now animation is realized by modifying DefaultItemAnimator.<br />
+Added set animate duration.<br />
+You can destroy 'DanMu' by ‘DanMu.destroy()’.
+
+###v1.1.1
+This is a large of modification. <br />
+Modify add Bullet screen mode and can Adding custom layout. <br />
+You can set RecyclerView rows.
 ###v1.0.0
 Initial version,Only realized the Bullet screen function
-###v1.1.1
-This is a large of modification. 
 
-Modify add Bullet screen mode and can Adding custom layout. 
-
-You can set RecyclerView rows.
 #License
 
     Copyright 2016 xujiaji

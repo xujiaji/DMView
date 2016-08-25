@@ -24,7 +24,7 @@ import java.util.List;
 
 import io.xujiaji.dmlib.barrage.builder.All;
 import io.xujiaji.dmlib.barrage.builder.Builder;
-import io.xujiaji.dmlib.recyclerview_item_anim.OverTotalLengthAnimator;
+import io.xujiaji.dmlib.recyclerview_item_anim.DmItemAnimator;
 import io.xujiaji.dmlib.util.DMUtil;
 
 /**
@@ -38,7 +38,8 @@ public class DanMu {
     private List<Integer> indexList;
     private List<BarrageEntity> barrageCache;
     private static DanMu mDanMu;
-    private int rowNum = 6;
+    private int rowNum = 6; // Bullet screen default lines
+    private int duration = 8000;// animator default duration
 
     private DanMu() {
     }
@@ -52,6 +53,10 @@ public class DanMu {
         return mDanMu;
     }
 
+    /**
+     * Bullet screen init 初始化弹幕
+     * @param rv RecyclerView
+     */
     public static void init(RecyclerView rv) {
         if (DanMu.Instance().rv == null)
             DanMu.Instance().rv = DMUtil.checkNotNull(rv, "DanMu.init(): RecyclerView is null");
@@ -59,12 +64,22 @@ public class DanMu {
         DanMu.Instance().initView();
     }
 
+    /**
+     * Bullet screen initialization 初始化弹幕
+     * @param rv RecyclerView
+     * @param config 弹幕的配置
+     */
     public static void init(RecyclerView rv, Config config) {
         init(rv);
         if (config == null) return;
         if (config.getRowNum() != 0) {
             DanMu.Instance().setRowNum(config.getRowNum());
         }
+
+        if (config.getDuration() != 0) {
+            DanMu.Instance().duration = config.getDuration();
+        }
+
         if (config.getRootId() != 0){
             DanMu.Instance().mBarrageAdapter.setConfigHolder(config);
         }
@@ -87,14 +102,20 @@ public class DanMu {
         barrageCache = new ArrayList<>();
         indexList = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true));
-        OverTotalLengthAnimator anim = new OverTotalLengthAnimator();
-        rv.setItemAnimator(anim);
+        DmItemAnimator dmItemAnimator = new DmItemAnimator();
+        dmItemAnimator.setSupportsChangeAnimations(true);
+        dmItemAnimator.setAddDuration(duration);
+        dmItemAnimator.setChangeDuration(duration);
+        rv.setItemAnimator(dmItemAnimator);
         mBarrageAdapter = new BarrageAdapter(barrageList);
         rv.setAdapter(mBarrageAdapter);
-
-        anim.setOnAnimListener(new OverTotalLengthAnimator.OnAnimListener() {
+        rv.setHasFixedSize(true);
+        dmItemAnimator.setOnAnimListener(new DmItemAnimator.OnAnimListener() {
             @Override
             public void over() {
+                if (indexList == null && barrageList == null && barrageCache == null) {
+                    return;
+                }
                 int index = indexList.get(0);
                 barrageList.get(index).over();
                 indexList.remove(0);
@@ -107,6 +128,12 @@ public class DanMu {
         });
     }
 
+    /**
+     * add Bullet screen 添加弹幕
+     * @param name 姓名
+     * @param msg 消息
+     * @param pic 头像
+     */
     public void addBarrage(String name, String msg, String pic) {
         boolean isAdd = false;
         if (barrageList.size() >= rowNum) {
@@ -139,7 +166,31 @@ public class DanMu {
         }
     }
 
+    /**
+     * set the number of lines 设置行数
+     * @param rowNum 多少行
+     */
     public void setRowNum(int rowNum) {
         this.rowNum = rowNum;
+    }
+
+    private void clear() {
+        context = null;
+        rv = null;
+        barrageList.clear();
+        barrageList = null;
+        mBarrageAdapter = null;
+        indexList.clear();
+        indexList = null;
+        barrageCache.clear();
+        barrageCache = null;
+        mDanMu = null;
+    }
+
+    /**
+     * destroy 销毁
+     */
+    public static void destroy() {
+        DanMu.Instance().clear();
     }
 }
