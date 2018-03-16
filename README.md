@@ -1,3 +1,7 @@
+# 当前库由于问题诸多已弃用，新DMView2地址：
+https://github.com/xujiaji/DMView2
+
+
 # DMView [中文介绍](http://www.jianshu.com/p/6649f5239aef)
 Library for display Bullet screen.You only need to add a few base info.
 # Now Version
